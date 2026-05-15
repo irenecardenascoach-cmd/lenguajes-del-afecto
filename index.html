@@ -3,528 +3,151 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lenguajes del Afecto — Relation Line™</title>
+<title>Mis Lenguajes del Afecto — Relation Line™</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Poppins:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --rose:     #F4D9D0;
-    --peach:    #F9E8DF;
-    --sage:     #D6E8DC;
-    --lavender: #E2DCF0;
-    --butter:   #F5EDD6;
-    --sky:      #D4E8F0;
-    --blush:    #EDCEC8;
-    --mint:     #C8E0D2;
-    --lilac:    #CFC6E8;
-    --cream:    #FBF6EF;
-    --ink:      #2C2C2C;
-    --mid:      #6B6B6B;
-    --light:    #A0A0A0;
-    --white:    #FFFFFF;
-    --shadow:   rgba(44,44,44,0.08);
-  }
+:root {
+  --rose:#F4D9D0;--peach:#F9E8DF;--sage:#D6E8DC;--lavender:#E2DCF0;
+  --butter:#F5EDD6;--sky:#D4E8F0;--mint:#C8E0D2;--cream:#FBF6EF;
+  --ink:#2C2C2C;--mid:#6B6B6B;--light:#A0A0A0;--white:#FFFFFF;
+  --shadow:rgba(44,44,44,0.08);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;letter-spacing:-0.01em;}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#D4A5A0,#A89BC8);transition:width .5s ease;z-index:100;}
 
-  body {
-    font-family: 'Poppins', sans-serif;
-    background: var(--cream);
-    color: var(--ink);
-    min-height: 100vh;
-    letter-spacing: -0.01em;
-  }
+.site-header{text-align:center;padding:52px 24px 16px;background:var(--cream);}
+.site-header .brand{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--light);margin-bottom:12px;}
+.site-header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,6vw,52px);font-weight:300;color:var(--ink);line-height:1.1;margin-bottom:10px;}
+.site-header h1 em{font-style:italic;color:#A07878;}
+.site-header p{font-size:13px;font-weight:300;color:var(--mid);letter-spacing:-0.01em;max-width:420px;margin:0 auto;line-height:1.7;}
 
-  /* ─── PROGRESS BAR ─── */
-  .progress-bar {
-    position: fixed;
-    top: 0; left: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #D4A5A0, #A89BC8);
-    transition: width 0.5s ease;
-    z-index: 100;
-  }
+.step-nav{display:flex;justify-content:center;align-items:center;gap:8px;padding:20px 0 6px;}
+.step-dot{width:8px;height:8px;border-radius:50%;background:#DDD;transition:all .3s ease;}
+.step-dot.active{background:#A07878;transform:scale(1.3);}
+.step-dot.done{background:#B8CCBA;}
 
-  /* ─── HEADER ─── */
-  .site-header {
-    text-align: center;
-    padding: 52px 24px 20px;
-    background: var(--cream);
-  }
-  .site-header .brand {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--light);
-    margin-bottom: 12px;
-  }
-  .site-header h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(32px, 6vw, 52px);
-    font-weight: 300;
-    color: var(--ink);
-    line-height: 1.1;
-    margin-bottom: 10px;
-  }
-  .site-header h1 em {
-    font-style: italic;
-    color: #A07878;
-  }
-  .site-header p {
-    font-family: 'Poppins', sans-serif;
-    font-size: 13px;
-    font-weight: 300;
-    color: var(--mid);
-    letter-spacing: -0.01em;
-    max-width: 420px;
-    margin: 0 auto;
-    line-height: 1.7;
-  }
+.container{max-width:660px;margin:0 auto;padding:14px 18px 80px;}
 
-  /* ─── STEP DOTS ─── */
-  .step-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    padding: 24px 0 8px;
-  }
-  .step-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #DDD;
-    transition: all 0.3s ease;
-    cursor: default;
-  }
-  .step-dot.active { background: #A07878; transform: scale(1.3); }
-  .step-dot.done   { background: #B8CCBA; }
+.screen{display:none;animation:fadeUp .35s ease;}
+.screen.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 
-  /* ─── CONTAINER ─── */
-  .container {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 16px 20px 80px;
-  }
+.card{background:var(--white);border-radius:20px;padding:32px 28px;box-shadow:0 4px 24px var(--shadow);margin-bottom:14px;}
+@media(max-width:480px){.card{padding:22px 18px;}}
 
-  /* ─── SCREENS ─── */
-  .screen { display: none; animation: fadeUp 0.4s ease; }
-  .screen.active { display: block; }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+.card-label{font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--light);margin-bottom:7px;}
+.card h2{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,4vw,30px);font-weight:400;line-height:1.2;color:var(--ink);margin-bottom:9px;}
+.card h2 em{font-style:italic;color:#9A7070;}
+.card p{font-size:13px;font-weight:300;color:var(--mid);line-height:1.75;letter-spacing:-0.01em;}
 
-  /* ─── CARD ─── */
-  .card {
-    background: var(--white);
-    border-radius: 20px;
-    padding: 36px 32px;
-    box-shadow: 0 4px 24px var(--shadow);
-    margin-bottom: 16px;
-  }
-  @media (max-width: 480px) { .card { padding: 24px 20px; } }
+/* Pills intro */
+.intro-visual{display:flex;justify-content:center;gap:9px;margin:24px 0;flex-wrap:wrap;}
+.lang-pill{display:flex;align-items:center;gap:7px;padding:9px 15px;border-radius:40px;font-size:12px;font-weight:500;font-family:'Poppins',sans-serif;letter-spacing:-0.01em;}
+.pill-1{background:var(--rose);color:#7A4040;}
+.pill-2{background:var(--sage);color:#3A6040;}
+.pill-3{background:var(--lavender);color:#4A3878;}
+.pill-4{background:var(--butter);color:#7A6020;}
+.pill-5{background:var(--sky);color:#204870;}
 
-  .card-label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--light);
-    margin-bottom: 8px;
-  }
-  .card h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(22px, 4vw, 30px);
-    font-weight: 400;
-    line-height: 1.2;
-    color: var(--ink);
-    margin-bottom: 10px;
-  }
-  .card h2 em { font-style: italic; color: #9A7070; }
-  .card p {
-    font-size: 13px;
-    font-weight: 300;
-    color: var(--mid);
-    line-height: 1.75;
-    letter-spacing: -0.01em;
-  }
+.steps-list{display:flex;flex-direction:column;gap:10px;margin:18px 0;}
+.step-item{display:flex;align-items:flex-start;gap:13px;}
+.step-num{width:26px;height:26px;border-radius:50%;background:var(--rose);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#7A4040;flex-shrink:0;margin-top:1px;}
+.step-item p{font-size:13px;color:var(--mid);padding-top:3px;line-height:1.6;}
 
-  /* ─── INTRO SCREEN ─── */
-  .intro-visual {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 28px 0;
-    flex-wrap: wrap;
-  }
-  .lang-pill {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 16px;
-    border-radius: 40px;
-    font-size: 12px;
-    font-weight: 500;
-    font-family: 'Poppins', sans-serif;
-    letter-spacing: -0.01em;
-    cursor: default;
-  }
-  .pill-1 { background: var(--rose);     color: #7A4040; }
-  .pill-2 { background: var(--sage);     color: #3A6040; }
-  .pill-3 { background: var(--lavender); color: #4A3878; }
-  .pill-4 { background: var(--butter);   color: #7A6020; }
-  .pill-5 { background: var(--sky);      color: #204870; }
+/* Lang cards */
+.lang-cards{display:flex;flex-direction:column;gap:9px;}
+.lang-card{padding:13px 15px;border-radius:12px;border:1.5px solid transparent;cursor:pointer;transition:all .2s;display:flex;gap:13px;align-items:flex-start;}
+.lang-card:hover{border-color:currentColor;}
+.lang-card.selected{border-width:2px;}
+.lc-1{background:var(--rose);color:#8A5050;}
+.lc-2{background:var(--sage);color:#3A5A40;}
+.lc-3{background:var(--lavender);color:#4A3868;}
+.lc-4{background:var(--butter);color:#6A5020;}
+.lc-5{background:var(--sky);color:#1A4060;}
+.lc-none{background:#F5F5F5;color:#AAA;}
+.lc-icon{font-size:19px;flex-shrink:0;margin-top:2px;}
+.lc-name{font-size:13px;font-weight:600;margin-bottom:2px;}
+.lc-desc{font-size:11.5px;font-weight:300;opacity:.82;line-height:1.5;}
 
-  .steps-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 20px 0;
-  }
-  .step-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-  }
-  .step-num {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    background: var(--rose);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px;
-    font-weight: 600;
-    color: #7A4040;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-  .step-item p {
-    font-size: 13px;
-    color: var(--mid);
-    padding-top: 4px;
-    line-height: 1.6;
-  }
+.info-box{padding:15px 17px;border-radius:12px;margin-top:14px;display:none;}
+.info-box.visible{display:block;}
+.info-box h4{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;margin-bottom:5px;}
+.info-box p{font-size:12px;font-weight:300;line-height:1.7;letter-spacing:-0.01em;}
 
-  /* ─── QUESTIONS ─── */
-  .question-block {
-    margin-bottom: 24px;
-  }
-  .question-block h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    font-weight: 400;
-    color: var(--ink);
-    margin-bottom: 6px;
-    line-height: 1.4;
-  }
-  .question-block .hint {
-    font-size: 11.5px;
-    color: var(--light);
-    font-weight: 300;
-    margin-bottom: 12px;
-    letter-spacing: -0.01em;
-  }
+/* Questions */
+.question-block{margin-bottom:22px;}
+.question-block h3{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--ink);margin-bottom:5px;line-height:1.4;}
+.question-block .hint{font-size:11.5px;color:var(--light);font-weight:300;margin-bottom:11px;letter-spacing:-0.01em;}
+.question-block .examples{font-size:11.5px;color:var(--mid);font-weight:300;margin-bottom:11px;letter-spacing:-0.01em;font-style:italic;line-height:1.65;}
 
-  /* Scale */
-  .scale-wrap {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .scale-btn {
-    width: 42px; height: 42px;
-    border-radius: 50%;
-    border: 1.5px solid #E0E0E0;
-    background: var(--white);
-    font-size: 13px;
-    font-weight: 500;
-    font-family: 'Poppins', sans-serif;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    color: var(--mid);
-  }
-  .scale-btn:hover { border-color: #C8A0A0; background: var(--rose); color: #7A4040; }
-  .scale-btn.selected { background: #C8A0A0; border-color: #C8A0A0; color: var(--white); }
+.reflection-area{width:100%;padding:13px 15px;border:1.5px solid #EEE;border-radius:12px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:300;color:var(--ink);resize:vertical;min-height:84px;outline:none;transition:border-color .2s;letter-spacing:-0.01em;line-height:1.7;background:var(--cream);}
+.reflection-area:focus{border-color:#C8A0A0;background:var(--white);}
+.reflection-area::placeholder{color:var(--light);}
 
-  .scale-labels {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 6px;
-    font-size: 10px;
-    color: var(--light);
-  }
+/* Check grid */
+.check-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+@media(max-width:400px){.check-grid{grid-template-columns:1fr;}}
+.check-item{display:flex;align-items:flex-start;gap:9px;padding:10px 12px;border-radius:10px;border:1.5px solid #EEE;cursor:pointer;transition:all .2s;background:var(--white);}
+.check-item:hover{border-color:#C8A0A0;background:var(--rose);}
+.check-item.selected{border-color:#C8A0A0;background:var(--rose);}
+.check-icon{width:17px;height:17px;border-radius:4px;border:1.5px solid #DDD;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all .2s;}
+.check-item.selected .check-icon{background:#C8A0A0;border-color:#C8A0A0;color:white;}
+.check-text{font-size:12px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:-0.01em;}
 
-  /* Text area */
-  .reflection-area {
-    width: 100%;
-    padding: 14px 16px;
-    border: 1.5px solid #EEE;
-    border-radius: 12px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 13px;
-    font-weight: 300;
-    color: var(--ink);
-    resize: vertical;
-    min-height: 90px;
-    outline: none;
-    transition: border-color 0.2s;
-    letter-spacing: -0.01em;
-    line-height: 1.7;
-    background: var(--cream);
-  }
-  .reflection-area:focus { border-color: #C8A0A0; background: var(--white); }
-  .reflection-area::placeholder { color: var(--light); }
+/* Scale */
+.scale-wrap{display:flex;gap:8px;flex-wrap:wrap;}
+.scale-btn{width:42px;height:42px;border-radius:50%;border:1.5px solid #E0E0E0;background:var(--white);font-size:13px;font-weight:500;font-family:'Poppins',sans-serif;cursor:pointer;transition:all .2s ease;color:var(--mid);}
+.scale-btn:hover{border-color:#C8A0A0;background:var(--rose);color:#7A4040;}
+.scale-btn.selected{background:#C8A0A0;border-color:#C8A0A0;color:var(--white);}
+.scale-labels{display:flex;justify-content:space-between;margin-top:5px;font-size:10px;color:var(--light);}
 
-  /* Checkbox grid */
-  .check-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-  @media (max-width: 400px) { .check-grid { grid-template-columns: 1fr; } }
-  .check-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 10px 12px;
-    border-radius: 10px;
-    border: 1.5px solid #EEE;
-    cursor: pointer;
-    transition: all 0.2s;
-    background: var(--white);
-  }
-  .check-item:hover { border-color: #C8A0A0; background: var(--rose); }
-  .check-item.selected { border-color: #C8A0A0; background: var(--rose); }
-  .check-item input { display: none; }
-  .check-icon {
-    width: 18px; height: 18px;
-    border-radius: 4px;
-    border: 1.5px solid #DDD;
-    flex-shrink: 0;
-    margin-top: 1px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px;
-    transition: all 0.2s;
-  }
-  .check-item.selected .check-icon { background: #C8A0A0; border-color: #C8A0A0; color: white; }
-  .check-text { font-size: 12px; font-weight: 300; color: var(--ink); line-height: 1.5; letter-spacing: -0.01em; }
+/* Divider */
+.divider{height:1px;background:linear-gradient(90deg,transparent,#E8E0D8,transparent);margin:24px 0;}
 
-  /* Language cards */
-  .lang-cards {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .lang-card {
-    padding: 14px 16px;
-    border-radius: 12px;
-    border: 1.5px solid transparent;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-  }
-  .lang-card:hover { border-color: currentColor; opacity: 1; }
-  .lang-card.selected { border-width: 2px; }
-  .lc-1  { background: var(--rose);     color: #8A5050; }
-  .lc-2  { background: var(--sage);     color: #3A5A40; }
-  .lc-3  { background: var(--lavender); color: #4A3868; }
-  .lc-4  { background: var(--butter);   color: #6A5020; }
-  .lc-5  { background: var(--sky);      color: #1A4060; }
-  .lc-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
-  .lc-name { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
-  .lc-desc { font-size: 11.5px; font-weight: 300; opacity: 0.8; line-height: 1.5; }
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:40px;border:none;font-family:'Poppins',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .25s ease;letter-spacing:-0.01em;text-decoration:none;}
+.btn-primary{background:linear-gradient(135deg,#C8A0A0,#A89BC8);color:white;box-shadow:0 4px 16px rgba(168,155,200,.35);}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(168,155,200,.45);}
+.btn-primary:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+.btn-secondary{background:var(--white);color:var(--mid);border:1.5px solid #E8E0D8;}
+.btn-secondary:hover{background:var(--cream);}
+.btn-download{background:var(--sage);color:#2A5030;border:none;}
+.btn-download:hover{background:var(--mint);}
+.btn-skool{background:#1A1A2E;color:white;border:none;}
+.btn-skool:hover{background:#2D2D50;}
+.btn-copy{background:var(--lavender);color:#4A3878;border:none;}
+.btn-copy:hover{background:#D4CCE8;}
+.btn-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px;align-items:center;}
 
-  /* ─── DIVIDER ─── */
-  .divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #E8E0D8, transparent);
-    margin: 28px 0;
-  }
+/* Results */
+.result-hero{text-align:center;padding:28px 0 18px;}
+.result-hero h2{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,5vw,42px);font-weight:300;line-height:1.15;margin-bottom:7px;}
+.result-hero h2 em{font-style:italic;color:#A07878;}
+.result-hero p{font-size:13px;color:var(--mid);font-weight:300;max-width:380px;margin:0 auto;line-height:1.7;}
 
-  /* ─── INFO BOX ─── */
-  .info-box {
-    padding: 16px 18px;
-    border-radius: 12px;
-    margin-top: 12px;
-    display: none;
-  }
-  .info-box.visible { display: block; }
-  .info-box h4 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
-  .info-box p {
-    font-size: 12px;
-    font-weight: 300;
-    line-height: 1.7;
-    letter-spacing: -0.01em;
-  }
-  .info-box ul {
-    margin-top: 8px;
-    padding-left: 16px;
-    font-size: 12px;
-    font-weight: 300;
-    line-height: 1.8;
-    letter-spacing: -0.01em;
-  }
+.result-section{background:var(--white);border-radius:16px;padding:22px;margin-bottom:11px;box-shadow:0 2px 16px var(--shadow);}
+.result-section h3{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;color:var(--ink);margin-bottom:4px;}
+.rs-sub{font-size:10px;color:var(--light);margin-bottom:10px;text-transform:uppercase;letter-spacing:.12em;}
+.result-badge{display:inline-block;padding:5px 13px;border-radius:30px;font-size:11px;font-weight:500;margin:3px;font-family:'Poppins',sans-serif;}
+.result-text{font-size:13px;font-weight:300;color:var(--mid);line-height:1.75;letter-spacing:-0.01em;margin-top:9px;white-space:pre-wrap;font-family:'Poppins',sans-serif;}
+.bar-wrap{margin:9px 0 5px;}
+.bar-label{display:flex;justify-content:space-between;font-size:12px;font-weight:400;margin-bottom:5px;color:var(--ink);}
+.bar-track{height:8px;background:#F0EBE8;border-radius:10px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:10px;transition:width .8s ease;}
 
-  /* ─── SECTION TITLE ─── */
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px;
-    font-weight: 400;
-    color: var(--ink);
-    margin-bottom: 4px;
-  }
-  .section-sub {
-    font-size: 12px;
-    color: var(--light);
-    font-weight: 300;
-    margin-bottom: 20px;
-    letter-spacing: -0.01em;
-  }
-
-  /* ─── BUTTONS ─── */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 14px 28px;
-    border-radius: 40px;
-    border: none;
-    font-family: 'Poppins', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    letter-spacing: -0.01em;
-    text-decoration: none;
-  }
-  .btn-primary {
-    background: linear-gradient(135deg, #C8A0A0, #A89BC8);
-    color: white;
-    box-shadow: 0 4px 16px rgba(168,155,200,0.35);
-  }
-  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(168,155,200,0.45); }
-  .btn-secondary {
-    background: var(--white);
-    color: var(--mid);
-    border: 1.5px solid #E8E0D8;
-  }
-  .btn-secondary:hover { background: var(--cream); }
-  .btn-download {
-    background: var(--sage);
-    color: #2A5030;
-    border: none;
-  }
-  .btn-download:hover { background: var(--mint); }
-  .btn-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 24px;
-    align-items: center;
-  }
-
-  /* ─── RESULTS SCREEN ─── */
-  .result-hero {
-    text-align: center;
-    padding: 32px 0 20px;
-  }
-  .result-hero h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(28px, 5vw, 42px);
-    font-weight: 300;
-    line-height: 1.15;
-    margin-bottom: 8px;
-  }
-  .result-hero h2 em { font-style: italic; color: #A07878; }
-  .result-hero p {
-    font-size: 13px;
-    color: var(--mid);
-    font-weight: 300;
-    max-width: 380px;
-    margin: 0 auto;
-    line-height: 1.7;
-  }
-
-  .result-section {
-    background: var(--white);
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 12px;
-    box-shadow: 0 2px 16px var(--shadow);
-  }
-  .result-section h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 19px;
-    font-weight: 400;
-    color: var(--ink);
-    margin-bottom: 4px;
-  }
-  .result-section .rs-sub {
-    font-size: 11px;
-    color: var(--light);
-    margin-bottom: 14px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-  .result-badge {
-    display: inline-block;
-    padding: 6px 14px;
-    border-radius: 30px;
-    font-size: 12px;
-    font-weight: 500;
-    margin: 3px;
-    font-family: 'Poppins', sans-serif;
-  }
-  .result-text {
-    font-size: 13px;
-    font-weight: 300;
-    color: var(--mid);
-    line-height: 1.75;
-    letter-spacing: -0.01em;
-    margin-top: 10px;
-    white-space: pre-wrap;
-    font-family: 'Poppins', sans-serif;
-  }
-  .bar-wrap { margin: 10px 0 6px; }
-  .bar-label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    font-weight: 400;
-    margin-bottom: 5px;
-    color: var(--ink);
-  }
-  .bar-track {
-    height: 8px;
-    background: #F0EBE8;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  .bar-fill {
-    height: 100%;
-    border-radius: 10px;
-    transition: width 0.8s ease;
-  }
-
-  /* ─── TOOLTIP ─── */
-  .tooltip {
-    position: relative;
-    display: inline-block;
-    cursor: help;
-    color: var(--light);
-    font-size: 11px;
-    border-bottom: 1px dotted var(--light);
-    margin-left: 4px;
-  }
-
-  /* ─── HIDDEN PRINT ─── */
-  #print-area { display: none; }
+/* Skool section */
+.skool-section{background:var(--white);border-radius:20px;padding:28px;box-shadow:0 4px 24px var(--shadow);margin-bottom:14px;}
+.skool-header{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.skool-logo{width:48px;height:48px;border-radius:12px;object-fit:cover;}
+.skool-header-text h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;margin-bottom:2px;}
+.skool-header-text p{font-size:12px;color:var(--light);font-weight:300;}
+.skool-field{width:100%;padding:12px 14px;border:1.5px solid #EEE;border-radius:11px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:300;color:var(--ink);outline:none;transition:border-color .2s;letter-spacing:-0.01em;line-height:1.7;background:var(--cream);margin-bottom:9px;resize:vertical;}
+.skool-field:focus{border-color:#A89BC8;background:var(--white);}
+.skool-title{font-size:11px;font-weight:500;color:var(--mid);margin-bottom:5px;text-transform:uppercase;letter-spacing:.1em;}
+.copy-feedback{font-size:11px;color:#3A5A40;font-weight:500;opacity:0;transition:opacity .3s;margin-left:4px;}
+.copy-feedback.show{opacity:1;}
 </style>
 </head>
 <body>
@@ -534,639 +157,472 @@
 <header class="site-header">
   <div class="brand">Relation Line™</div>
   <h1>Mis <em>Lenguajes</em><br>del Afecto</h1>
-  <p>Un ejercicio de autoconocimiento para entender cómo das y recibes amor, y qué dice eso de ti.</p>
+  <p>Descubre cómo das y recibes amor — y qué dice eso de tu historia.</p>
 </header>
 
 <div class="step-nav" id="stepNav"></div>
 
 <div class="container">
 
-  <!-- ══════════ PANTALLA 0: BIENVENIDA ══════════ -->
-  <div class="screen active" id="screen-0">
-    <div class="card">
-      <div class="card-label">Antes de comenzar</div>
-      <h2>¿Qué vas a <em>descubrir</em> hoy?</h2>
-      <p>Este ejercicio te ayuda a identificar tu lenguaje del afecto principal, las heridas emocionales que lo formaron, y los vacíos de tu infancia que aún buscan llenarse en tus relaciones de hoy.</p>
+<!-- ══ PANTALLA 0: BIENVENIDA ══ -->
+<div class="screen active" id="screen-0">
+  <div class="card">
+    <div class="card-label">Bienvenida</div>
+    <h2>¿Cómo <em>sientes</em> el amor?</h2>
+    <p>Este ejercicio es tuyo. No hay respuestas correctas ni incorrectas — solo información valiosa sobre cómo funcionas en el amor.</p>
 
-      <div class="intro-visual">
-        <div class="lang-pill pill-1">🤝 Toque físico</div>
-        <div class="lang-pill pill-2">🎁 Regalos</div>
-        <div class="lang-pill pill-3">💬 Palabras</div>
-        <div class="lang-pill pill-4">⏰ Tiempo</div>
-        <div class="lang-pill pill-5">🙌 Actos</div>
+    <div class="intro-visual">
+      <div class="lang-pill pill-1">💬 Palabras</div>
+      <div class="lang-pill pill-2">⏰ Tiempo</div>
+      <div class="lang-pill pill-3">🎁 Regalos</div>
+      <div class="lang-pill pill-4">🙌 Actos</div>
+      <div class="lang-pill pill-5">🤝 Toque</div>
+    </div>
+
+    <div class="steps-list">
+      <div class="step-item"><div class="step-num">1</div><p>Elige tu lenguaje del afecto principal y secundario</p></div>
+      <div class="step-item"><div class="step-num">2</div><p>Reconoce las heridas que formaron tu forma de amar</p></div>
+      <div class="step-item"><div class="step-num">3</div><p>Responde 2 preguntas profundas sobre tu historia afectiva</p></div>
+      <div class="step-item"><div class="step-num">4</div><p>Descarga tus resultados y compártelos en la comunidad</p></div>
+    </div>
+
+    <div class="divider"></div>
+    <p style="font-size:12px;color:var(--light);">⏱ Duración estimada: 8 a 10 minutos</p>
+    <div class="btn-row"><button class="btn btn-primary" onclick="goTo(1)">Empezar →</button></div>
+  </div>
+</div>
+
+<!-- ══ PANTALLA 1: LENGUAJE PRINCIPAL + SECUNDARIO ══ -->
+<div class="screen" id="screen-1">
+  <div class="card">
+    <div class="card-label">Paso 1 de 3 · Tus lenguajes</div>
+    <h2>¿Cómo <em>recibes</em> el amor?</h2>
+    <p>Elige el lenguaje que más necesitas de otra persona para sentirte amada de verdad.</p>
+
+    <div style="margin-top:22px;">
+      <div class="lang-cards" id="langCards">
+        <div class="lang-card lc-1" data-lang="palabras" onclick="selectLang(this)">
+          <div class="lc-icon">💬</div>
+          <div><div class="lc-name">Palabras de afirmación</div>
+          <div class="lc-desc">Te llegan los "te quiero", los mensajes, los elogios, los reconocimientos. Sin palabras, el amor se siente vacío.</div></div>
+        </div>
+        <div class="lang-card lc-2" data-lang="tiempo" onclick="selectLang(this)">
+          <div class="lc-icon">⏰</div>
+          <div><div class="lc-name">Tiempo de calidad</div>
+          <div class="lc-desc">Necesitas presencia real — sin teléfono, sin distracciones. Que estén contigo de verdad.</div></div>
+        </div>
+        <div class="lang-card lc-3" data-lang="regalos" onclick="selectLang(this)">
+          <div class="lc-icon">🎁</div>
+          <div><div class="lc-name">Regalos simbólicos</div>
+          <div class="lc-desc">No es el objeto — es saber que pensaron en ti. Un detalle pequeño y significativo te dice más que mil palabras.</div></div>
+        </div>
+        <div class="lang-card lc-4" data-lang="actos" onclick="selectLang(this)">
+          <div class="lc-icon">🙌</div>
+          <div><div class="lc-name">Actos de servicio</div>
+          <div class="lc-desc">El amor se demuestra haciendo. Cuando alguien te ayuda, te facilita la vida, actúa sin que se lo pidas — eso es amor para ti.</div></div>
+        </div>
+        <div class="lang-card lc-5" data-lang="toque" onclick="selectLang(this)">
+          <div class="lc-icon">🤝</div>
+          <div><div class="lc-name">Contacto físico</div>
+          <div class="lc-desc">Un abrazo, una mano, la cercanía. Necesitas sentir el amor en el cuerpo — sin contacto, el vínculo se siente frío.</div></div>
+        </div>
       </div>
+      <div id="langInfo" class="info-box"></div>
+    </div>
 
-      <div class="divider"></div>
+    <div class="divider"></div>
 
-      <div class="steps-list">
-        <div class="step-item">
-          <div class="step-num">1</div>
-          <p><strong>Identifica</strong> tu lenguaje del afecto principal y cómo lo vives en el día a día.</p>
-        </div>
-        <div class="step-item">
-          <div class="step-num">2</div>
-          <p><strong>Explora</strong> las heridas emocionales que dieron forma a cómo das y recibes amor.</p>
-        </div>
-        <div class="step-item">
-          <div class="step-num">3</div>
-          <p><strong>Reconoce</strong> los vacíos de infancia que sigues buscando llenar en tus relaciones.</p>
-        </div>
-        <div class="step-item">
-          <div class="step-num">4</div>
-          <p><strong>Descarga</strong> tus respuestas en un documento que puedes guardar o compartir.</p>
-        </div>
-      </div>
+    <h2 style="font-size:20px;margin-bottom:6px;">¿Y cómo <em>das</em> el amor?</h2>
+    <p style="margin-bottom:16px;">A veces usamos un lenguaje diferente al que necesitamos. ¿Cómo expresas tú el afecto?</p>
+    <div class="lang-cards" id="langCards2">
+      <div class="lang-card lc-1" data-lang="palabras" onclick="selectLang2(this)"><div class="lc-icon">💬</div><div><div class="lc-name">Palabras de afirmación</div></div></div>
+      <div class="lang-card lc-2" data-lang="tiempo" onclick="selectLang2(this)"><div class="lc-icon">⏰</div><div><div class="lc-name">Tiempo de calidad</div></div></div>
+      <div class="lang-card lc-3" data-lang="regalos" onclick="selectLang2(this)"><div class="lc-icon">🎁</div><div><div class="lc-name">Regalos simbólicos</div></div></div>
+      <div class="lang-card lc-4" data-lang="actos" onclick="selectLang2(this)"><div class="lc-icon">🙌</div><div><div class="lc-name">Actos de servicio</div></div></div>
+      <div class="lang-card lc-5" data-lang="toque" onclick="selectLang2(this)"><div class="lc-icon">🤝</div><div><div class="lc-name">Contacto físico</div></div></div>
+      <div class="lang-card lc-none" data-lang="igual" onclick="selectLang2(this)"><div class="lc-icon">✨</div><div><div class="lc-name">Es el mismo que el anterior</div></div></div>
+    </div>
 
-      <div class="divider"></div>
-      <p style="font-size:12px; color: var(--light);">⏱ Duración estimada: 10 a 15 minutos. Responde con honestidad, sin juzgarte.</p>
-
-      <div class="btn-row">
-        <button class="btn btn-primary" onclick="goTo(1)">Empezar el ejercicio →</button>
-      </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goTo(0)">← Atrás</button>
+      <button class="btn btn-primary" id="btn1" onclick="goTo(2)" disabled>Siguiente →</button>
     </div>
   </div>
+</div>
 
-  <!-- ══════════ PANTALLA 1: LENGUAJE PRIMARIO ══════════ -->
-  <div class="screen" id="screen-1">
-    <div class="card">
-      <div class="card-label">Paso 1 de 5 · Lenguaje principal</div>
-      <h2>¿Cómo <em>sientes</em> el amor?</h2>
-      <p>Cuando alguien te quiere, ¿qué es lo que más te llega al corazón? Elige el lenguaje que más resuena contigo en este momento de tu vida.</p>
+<!-- ══ PANTALLA 2: HERIDAS + 2 PREGUNTAS PODEROSAS ══ -->
+<div class="screen" id="screen-2">
+  <div class="card">
+    <div class="card-label">Paso 2 de 3 · Tu historia afectiva</div>
+    <h2>Lo que <em>formó</em> tu forma de amar</h2>
+    <p>Tu lenguaje del afecto no nació al azar. Se formó en tu infancia, en lo que recibiste y en lo que te faltó.</p>
 
-      <div style="margin-top: 24px;">
-        <div class="lang-cards" id="langCards">
-          <div class="lang-card lc-1" data-lang="palabras" onclick="selectLang(this)">
-            <div class="lc-icon">💬</div>
-            <div>
-              <div class="lc-name">Palabras de afirmación</div>
-              <div class="lc-desc">Te llenan los "te quiero", los mensajes, los elogios sinceros, saber con palabras que importas.</div>
-            </div>
-          </div>
-          <div class="lang-card lc-2" data-lang="tiempo" onclick="selectLang(this)">
-            <div class="lc-icon">⏰</div>
-            <div>
-              <div class="lc-name">Tiempo de calidad</div>
-              <div class="lc-desc">Lo que más valoras es la presencia plena, atención sin distracciones, momentos que son solo para ti y esa persona.</div>
-            </div>
-          </div>
-          <div class="lang-card lc-3" data-lang="regalos" onclick="selectLang(this)">
-            <div class="lc-icon">🎁</div>
-            <div>
-              <div class="lc-name">Regalos simbólicos</div>
-              <div class="lc-desc">No es el objeto, es el "pensé en ti". Los detalles, las sorpresas, el esfuerzo visible de que alguien te tuvo en mente.</div>
-            </div>
-          </div>
-          <div class="lang-card lc-4" data-lang="actos" onclick="selectLang(this)">
-            <div class="lc-icon">🙌</div>
-            <div>
-              <div class="lc-name">Actos de servicio</div>
-              <div class="lc-desc">El amor se demuestra haciendo. Cuando alguien te ayuda, facilita tu vida o hace algo sin que se lo pidas, lo sientes profundamente.</div>
-            </div>
-          </div>
-          <div class="lang-card lc-5" data-lang="toque" onclick="selectLang(this)">
-            <div class="lc-icon">🤝</div>
-            <div>
-              <div class="lc-name">Contacto físico</div>
-              <div class="lc-desc">Un abrazo, una mano, la cercanía física. El cuerpo es tu idioma del afecto — necesitas sentir el amor literalmente.</div>
-            </div>
-          </div>
+    <div style="margin-top:24px;">
+
+      <div class="question-block">
+        <h3>¿Qué heridas reconoces en ti?</h3>
+        <div class="hint">Marca todas las que sientas como tuyas. No tienes que haberlas "resuelto" para marcarlas.</div>
+        <div class="check-grid" id="heridas">
+          <div class="check-item" onclick="toggleCheck(this)"><div class="check-icon"></div><div class="check-text">Abandono — miedo a que se vayan o no estén</div></div>
+          <div class="check-item" onclick="toggleCheck(this)"><div class="check-icon"></div><div class="check-text">Rechazo — sensación de no ser suficiente</div></div>
+          <div class="check-item" onclick="toggleCheck(this)"><div class="check-icon"></div><div class="check-text">Traición — dificultad para confiar de verdad</div></div>
+          <div class="check-item" onclick="toggleCheck(this)"><div class="check-icon"></div><div class="check-text">Humillación — vergüenza de ser quien soy</div></div>
+          <div class="check-item" onclick="toggleCheck(this)"><div class="check-icon"></div><div class="check-text">Injusticia — sentir que no se me trata con equidad</div></div>
+          <div class="check-item" onclick="toggleCheck(this)"><div class="check-icon"></div><div class="check-text">Invisibilidad — no ser vista ni escuchada</div></div>
         </div>
-
-        <div id="langInfo" class="info-box" style="margin-top:16px;"></div>
-      </div>
-
-      <div class="btn-row">
-        <button class="btn btn-secondary" onclick="goTo(0)">← Atrás</button>
-        <button class="btn btn-primary" id="btn1" onclick="goTo(2)" disabled>Siguiente →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════════ PANTALLA 2: SUBCATEGORÍAS + SECUNDARIO ══════════ -->
-  <div class="screen" id="screen-2">
-    <div class="card">
-      <div class="card-label">Paso 2 de 5 · Cómo lo vives</div>
-      <h2>El <em>detalle</em> de cómo lo expresas</h2>
-      <p>Cada lenguaje tiene matices. Marca todos los que reconozcas en ti — tanto al dar como al recibir afecto.</p>
-
-      <div style="margin-top: 24px;">
-        <div class="section-title">Tu lenguaje en acción</div>
-        <div class="section-sub">¿Cuáles de estas formas usas o necesitas?</div>
-        <div class="check-grid" id="subCategories"></div>
       </div>
 
       <div class="divider"></div>
 
       <div class="question-block">
-        <h3>¿Hay un segundo lenguaje que también te mueve?</h3>
-        <div class="hint">A veces usamos uno para dar y otro para recibir. Es completamente normal.</div>
-        <div class="lang-cards" id="langCards2">
-          <div class="lang-card lc-1" data-lang="palabras" onclick="selectLang2(this)">
-            <div class="lc-icon">💬</div><div><div class="lc-name">Palabras de afirmación</div></div>
-          </div>
-          <div class="lang-card lc-2" data-lang="tiempo" onclick="selectLang2(this)">
-            <div class="lc-icon">⏰</div><div><div class="lc-name">Tiempo de calidad</div></div>
-          </div>
-          <div class="lang-card lc-3" data-lang="regalos" onclick="selectLang2(this)">
-            <div class="lc-icon">🎁</div><div><div class="lc-name">Regalos simbólicos</div></div>
-          </div>
-          <div class="lang-card lc-4" data-lang="actos" onclick="selectLang2(this)">
-            <div class="lc-icon">🙌</div><div><div class="lc-name">Actos de servicio</div></div>
-          </div>
-          <div class="lang-card lc-5" data-lang="toque" onclick="selectLang2(this)">
-            <div class="lc-icon">🤝</div><div><div class="lc-name">Contacto físico</div></div>
-          </div>
-          <div class="lang-card" style="background:#F5F5F5; color:#AAA;" data-lang="ninguno" onclick="selectLang2(this)">
-            <div class="lc-icon">—</div><div><div class="lc-name">Solo tengo uno</div></div>
-          </div>
-        </div>
+        <h3>¿Qué necesitabas de niña y no llegó?</h3>
+        <div class="hint">Piensa en quien más te cuidó — tu mamá, papá, o cuidador principal.</div>
+        <div class="examples">Ejemplos: "Necesitaba que me dijera que estaba orgullosa de mí" · "Quería que me abrazara más" · "Nunca me preguntaban cómo me sentía" · "Me ignoraban cuando lloraba"</div>
+        <textarea class="reflection-area" id="q_infancia" placeholder="Escribe lo primero que te llegue… no tiene que estar perfecto."></textarea>
       </div>
 
-      <div class="btn-row">
-        <button class="btn btn-secondary" onclick="goTo(1)">← Atrás</button>
-        <button class="btn btn-primary" id="btn2" onclick="goTo(3)" disabled>Siguiente →</button>
+      <div class="question-block">
+        <h3>¿Cómo aparece eso en tus relaciones de hoy?</h3>
+        <div class="hint">Una sola oración honesta vale más que un párrafo bien escrito.</div>
+        <div class="examples">Ejemplos: "Me vuelvo ansiosa si no me escriben rápido" · "Nunca pido lo que necesito porque siento que molesto" · "Cuando alguien se distancia, asumo que ya no me quiere" · "Doy más de lo que recibo y me agoto"</div>
+        <textarea class="reflection-area" id="q_hoy" placeholder="Esto no se lo muestras a nadie si no quieres — es solo para ti."></textarea>
       </div>
+
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goTo(1)">← Atrás</button>
+      <button class="btn btn-primary" onclick="goTo(3)">Ver mis resultados →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PANTALLA 3: RESULTADOS ══ -->
+<div class="screen" id="screen-3">
+  <div class="result-hero">
+    <div class="card-label" style="margin-bottom:10px;">Tus resultados</div>
+    <h2>Así <em>amas</em> tú</h2>
+    <p>Este es tu mapa afectivo personal. Léelo con calma y guárdalo.</p>
+  </div>
+
+  <div id="resultsContent"></div>
+
+  <!-- Descargar -->
+  <div class="card" style="background:linear-gradient(135deg,var(--lavender),var(--rose));margin-top:4px;">
+    <h2 style="font-size:20px;font-weight:400;margin-bottom:7px;">Guardar mis resultados</h2>
+    <p style="font-size:12px;margin-bottom:14px;">Descarga un documento con tu perfil afectivo completo y tus reflexiones.</p>
+    <div class="btn-row" style="margin-top:0;">
+      <button class="btn btn-download" onclick="downloadResults()">⬇ Descargar mis resultados</button>
     </div>
   </div>
 
-  <!-- ══════════ PANTALLA 3: HERIDAS ══════════ -->
-  <div class="screen" id="screen-3">
-    <div class="card">
-      <div class="card-label">Paso 3 de 5 · Heridas afectivas</div>
-      <h2>Lo que formó tu <em>forma de amar</em></h2>
-      <p>Nuestro lenguaje del afecto no nace al azar — generalmente se desarrolla como respuesta a lo que vivimos de niñas. Responde con honestidad y sin prisa.</p>
-
-      <div style="margin-top: 28px;">
-
-        <div class="question-block">
-          <h3>1. En tu infancia, ¿cómo expresaba el afecto quien más te cuidó?</h3>
-          <div class="hint">Piensa en tu madre, padre, o cuidador principal.</div>
-          <textarea class="reflection-area" id="q_infancia1" placeholder="Escribe lo que recuerdes… cómo te decían que te querían, o si no te lo decían." oninput="checkStep3()"></textarea>
-        </div>
-
-        <div class="question-block">
-          <h3>2. ¿Hubo algo que necesitabas de ellos y nunca llegó?</h3>
-          <div class="hint">Puede ser un abrazo, palabras de aliento, tiempo de calidad, reconocimiento.</div>
-          <textarea class="reflection-area" id="q_infancia2" placeholder="Puedes escribir una sola palabra o tanto como necesites." oninput="checkStep3()"></textarea>
-        </div>
-
-        <div class="question-block">
-          <h3>3. ¿Cuál de estas heridas sientes que más influyó en cómo amas hoy?</h3>
-          <div class="hint">Marca todas las que reconozcas en ti.</div>
-          <div class="check-grid" id="heridas">
-            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><div class="check-icon">✓</div><div class="check-text">Abandono — miedo a que me dejen o no estén</div></div>
-            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><div class="check-icon">✓</div><div class="check-text">Rechazo — sensación de no ser suficiente</div></div>
-            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><div class="check-icon">✓</div><div class="check-text">Traición — dificultad para confiar plenamente</div></div>
-            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><div class="check-icon">✓</div><div class="check-text">Humillación — vergüenza o ridículo de ser quien soy</div></div>
-            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><div class="check-icon">✓</div><div class="check-text">Injusticia — sentir que no se me trata con equidad</div></div>
-            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><div class="check-icon">✓</div><div class="check-text">Invisibilidad — no ser vista ni escuchada</div></div>
-          </div>
-        </div>
-
-        <div class="question-block">
-          <h3>4. ¿Cómo crees que esa herida aparece en tus relaciones de pareja hoy?</h3>
-          <div class="hint">Por ejemplo: "Me vuelvo ansiosa si no me escriben" / "No sé pedir lo que necesito"</div>
-          <textarea class="reflection-area" id="q_herida_hoy" placeholder="Descríbelo con tus propias palabras…" oninput="checkStep3()"></textarea>
-        </div>
-
-      </div>
-
-      <div class="btn-row">
-        <button class="btn btn-secondary" onclick="goTo(2)">← Atrás</button>
-        <button class="btn btn-primary" id="btn3" onclick="goTo(4)">Siguiente →</button>
+  <!-- Skool -->
+  <div class="skool-section" id="skoolSection">
+    <div class="skool-header">
+      <img id="skoolLogoImg" class="skool-logo" src="" alt="Ya NO me dueles">
+      <div class="skool-header-text">
+        <h3>Comparte en la comunidad 🌸</h3>
+        <p>Ya NO me dueles · Sección Logros</p>
       </div>
     </div>
+
+    <p style="font-size:13px;color:var(--mid);font-weight:300;margin-bottom:18px;line-height:1.7;">
+      Este descubrimiento merece ser celebrado. Copia la plantilla, edítala con tus propias palabras y publícala en <strong>Logros</strong> dentro de la comunidad.
+    </p>
+
+    <div class="skool-title">Título de la publicación</div>
+    <input type="text" class="skool-field" id="skool_titulo" value="Acabo de descubrir mi lenguaje del amor 💬✨" style="min-height:unset;resize:none;padding:11px 14px;">
+
+    <div class="skool-title" style="margin-top:6px;">Tu publicación (edítala a tu manera)</div>
+    <textarea class="skool-field" id="skool_post" style="min-height:200px;" oninput="autoResizeSkool(this)"></textarea>
+
+    <div class="btn-row" style="margin-top:14px;">
+      <button class="btn btn-copy" onclick="copySkoolPost()">📋 Copiar publicación <span class="copy-feedback" id="copyFeedback">¡Copiado!</span></button>
+      <a class="btn btn-skool" href="https://www.skool.com/rupturas-9784?p=logros" target="_blank" rel="noopener">🚀 Ir a publicar en Logros</a>
+    </div>
+
+    <p style="font-size:11px;color:var(--light);margin-top:12px;line-height:1.6;">
+      💡 Al llegar a Skool: selecciona la categoría <strong>Logros 🏆</strong>, pega el texto y ¡publica!
+    </p>
   </div>
 
-  <!-- ══════════ PANTALLA 4: VACÍOS + ESCALAS ══════════ -->
-  <div class="screen" id="screen-4">
-    <div class="card">
-      <div class="card-label">Paso 4 de 5 · Vacíos y patrones</div>
-      <h2>Lo que todavía <em>buscas</em></h2>
-      <p>Estos vacíos no son debilidades — son información valiosa sobre lo que necesitas consciente e inconscientemente en una relación.</p>
-
-      <div style="margin-top: 28px;">
-
-        <div class="question-block">
-          <h3>5. En una relación de pareja, ¿qué es lo que más temes no recibir?</h3>
-          <div class="hint">Sé honesta contigo misma — esto no va a ser juzgado.</div>
-          <textarea class="reflection-area" id="q_vacio1" placeholder="Por ejemplo: "No recibir reconocimiento", "Que no me prioricen", "Perder la conexión"…"></textarea>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="section-title">Niveles de satisfacción afectiva</div>
-        <div class="section-sub">¿Qué tan satisfecha te sientes hoy en cada área? (1 = nada, 5 = completamente)</div>
-
-        <div id="scalesBlock"></div>
-
-        <div class="divider"></div>
-
-        <div class="question-block">
-          <h3>6. ¿Hay algo que sientes que "nunca" vas a conseguir en una relación? ¿Por qué?</h3>
-          <div class="hint">Esto muchas veces viene de una creencia formada en la infancia.</div>
-          <textarea class="reflection-area" id="q_creencia" placeholder="Si no te sale nada, escribe: "No lo sé todavía" — eso también es una respuesta válida."></textarea>
-        </div>
-
-        <div class="question-block">
-          <h3>7. Si tu yo de 8 años te viera amando hoy, ¿qué te diría?</h3>
-          <div class="hint">Una de las preguntas más reveladoras de este ejercicio.</div>
-          <textarea class="reflection-area" id="q_ninha" placeholder="Tómate tu tiempo para responder esta…"></textarea>
-        </div>
-
-      </div>
-
-      <div class="btn-row">
-        <button class="btn btn-secondary" onclick="goTo(3)">← Atrás</button>
-        <button class="btn btn-primary" onclick="goTo(5)">Ver mis resultados →</button>
-      </div>
-    </div>
+  <div style="text-align:center;padding:10px 0 20px;">
+    <button class="btn btn-secondary" onclick="goTo(0)" style="font-size:12px;">Volver al inicio</button>
   </div>
-
-  <!-- ══════════ PANTALLA 5: RESULTADOS ══════════ -->
-  <div class="screen" id="screen-5">
-    <div class="result-hero">
-      <div class="card-label" style="margin-bottom:12px;">Tus resultados</div>
-      <h2>Así <em>amas</em> tú</h2>
-      <p>Este es tu mapa afectivo personal. Guárdalo, léelo con calma, y compártelo si sientes que alguien lo necesita.</p>
-    </div>
-
-    <div id="resultsContent"></div>
-
-    <div class="card" style="margin-top:16px; background: linear-gradient(135deg, var(--lavender), var(--rose));">
-      <h2 style="font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:400; margin-bottom:8px;">Guardar mis resultados</h2>
-      <p style="font-size:12px; color: var(--mid); margin-bottom:16px; font-weight:300;">Descarga un documento de texto con todas tus respuestas y tu perfil afectivo completo.</p>
-      <div class="btn-row" style="margin-top:0;">
-        <button class="btn btn-download" onclick="downloadResults()">⬇ Descargar mis resultados</button>
-        <button class="btn btn-secondary" onclick="goTo(0)">Volver al inicio</button>
-      </div>
-    </div>
-  </div>
+</div>
 
 </div><!-- /container -->
 
-<!-- Hidden print area -->
-<div id="print-area"></div>
-
 <script>
-// ── DATA ──────────────────────────────────────────────────────────────────────
-const LANGS = {
-  palabras: {
-    name: "Palabras de afirmación",
-    icon: "💬",
-    color: "#F4D9D0",
-    textColor: "#7A4040",
-    barColor: "#C8A0A0",
-    desc: "Tu corazón habla y escucha en palabras. Necesitas escuchar que importas, que te ven, que eres valorada. Sin palabras, el amor se siente vacío aunque todo lo demás esté.",
-    herida: "Este lenguaje muchas veces nace en infancias donde el afecto era escaso verbalmente — donde nadie decía 'te quiero', donde las críticas eran más frecuentes que los elogios. Aprendiste a buscar en las palabras la validación que no llegó.",
-    subcats: ["Palabras de reconocimiento ('lo hiciste muy bien')", "Expresiones de amor directo ('te quiero', 'me importas')", "Mensajes espontáneos durante el día", "Elogios públicos y en privado", "Cartas, notas escritas a mano", "Palabras de aliento en momentos difíciles", "Que te pregunten cómo estás y esperen la respuesta", "Apodos cariñosos y nicknames"]
-  },
-  tiempo: {
-    name: "Tiempo de calidad",
-    icon: "⏰",
-    color: "#D6E8DC",
-    textColor: "#3A5A40",
-    barColor: "#7AB890",
-    desc: "Para ti el amor se mide en presencia, no en regalos ni palabras. Necesitas que la persona esté contigo de verdad — sin teléfono, sin distracciones, completamente ahí.",
-    herida: "Este lenguaje suele formarse en infancias donde los cuidadores estaban físicamente presentes pero emocionalmente ausentes — ocupados, distantes, preocupados. Aprendiste que la presencia real es rara y valiosa.",
-    subcats: ["Conversaciones profundas sin distracciones", "Actividades compartidas (cocinar, caminar, ver películas)", "Rituales de pareja (café de mañana, calls de noche)", "Viajes o escapadas juntos", "Que te miren a los ojos cuando hablas", "Estar en silencio pero juntos", "Fechas especiales recordadas y celebradas", "Planes que se cumplen sin cancelaciones"]
-  },
-  regalos: {
-    name: "Regalos simbólicos",
-    icon: "🎁",
-    color: "#E2DCF0",
-    textColor: "#4A3878",
-    barColor: "#A89BC8",
-    desc: "No es materialismo — es el símbolo de que pensaron en ti. Un regalo pequeño y significativo dice 'estabas en mi mente aunque no estuvieras presente'. Eso te llena el corazón.",
-    herida: "Este lenguaje muchas veces se forma en infancias donde los regalos eran la única forma de afecto disponible — o donde nunca llegaban, generando una herida de invisibilidad. También aparece cuando los cuidadores decían amor con objetos en lugar de con presencia.",
-    subcats: ["Regalos pequeños y espontáneos sin ocasión especial", "Detalles que demuestran que 'te conocen' (tu comida favorita, un libro que mencionaste)", "Recuerdos físicos de momentos especiales", "Regalos en fechas importantes sin necesidad de recordatorio", "Traerte algo cuando viajan o salen", "Flores, cartas, objetos con significado personal", "Souvenirs y objetos que cuenten una historia juntos"]
-  },
-  actos: {
-    name: "Actos de servicio",
-    icon: "🙌",
-    color: "#F5EDD6",
-    textColor: "#6A5020",
-    barColor: "#C8A870",
-    desc: "Las palabras pueden engañar. Lo que una persona hace por ti dice más que todo lo que dice. Cuando alguien facilita tu vida, te alivia, te ayuda sin pedírtelo — eso es amor real para ti.",
-    herida: "Este lenguaje puede venir de infancias donde aprendiste que el amor se demuestra, no se dice. También puede surgir de haber cargado con demasiado sola — y ahora buscar una pareja que comparta ese peso.",
-    subcats: ["Hacer tareas o gestiones sin que se los pidas", "Ayudarte cuando estás abrumada o estresada", "Acordarse de lo que necesitas y hacerlo", "Prepararte comida o cuidar de tu espacio", "Estar pendiente de detalles prácticos de tu vida", "Apoyarte activamente en tus proyectos", "Hacer sacrificios de tiempo o energía por ti", "Resolver problemas que te preocupan"]
-  },
-  toque: {
-    name: "Contacto físico",
-    icon: "🤝",
-    color: "#D4E8F0",
-    textColor: "#1A4060",
-    barColor: "#70A8C8",
-    desc: "El cuerpo no miente. Para ti la conexión es literal — se siente en un abrazo, en una mano que sostiene, en estar cerca. Sin contacto, el vínculo se siente frío aunque todo lo demás esté bien.",
-    herida: "Este lenguaje puede nacer en infancias con poco contacto físico afectuoso — donde los abrazos eran escasos o inexistentes. O al contrario, en ambientes donde el contacto fue invasivo, generando una relación compleja con el cuerpo y la cercanía.",
-    subcats: ["Abrazos largos y frecuentes", "Tomarse de la mano en público y en privado", "Caricias espontáneas (cabello, espalda, brazo)", "Contacto durante conversaciones (pie, mano, hombro)", "Dormir cerca, con contacto", "Besos sin necesidad de que lleven a algo más", "Sentarse juntos con contacto físico", "Masajes o caricias sin necesidad de reciprocidad inmediata"]
-  }
-};
+// ── IMAGE DATA (inlined) ──────────────────────────────────────────────────────
+HTMLEOF
 
-const SCALES = [
-  { id: "sc_rec", label: "Me siento reconocida y valorada" },
-  { id: "sc_seg", label: "Me siento segura emocionalmente" },
-  { id: "sc_vis", label: "Me siento vista y escuchada" },
-  { id: "sc_pri", label: "Me siento priorizada" },
-  { id: "sc_con", label: "Me siento en conexión real con mi pareja (o con quien amo)" },
-];
+# Now inject the image as a JS variable
+echo "const SKOOL_IMG = 'data:image/png;base64,${BASE64}';" >> /mnt/user-data/outputs/lenguajes-del-afecto.html
+
+cat >> /mnt/user-data/outputs/lenguajes-del-afecto.html << 'SCRIPTEOF'
+
+// Set logo
+document.getElementById('skoolLogoImg').src = SKOOL_IMG;
+
+// ── LANG DATA ─────────────────────────────────────────────────────────────────
+const LANGS = {
+  palabras:{name:"Palabras de afirmación",icon:"💬",color:"#F4D9D0",textColor:"#7A4040",barColor:"#C8A0A0",
+    desc:"Tu corazón habla y escucha en palabras. Necesitas escuchar que importas, que te ven, que eres valorada. Sin palabras claras, el amor se siente vacío aunque todo lo demás esté.",
+    herida:"Este lenguaje muchas veces nace donde el afecto verbal era escaso — donde nadie decía 'te quiero', donde las críticas llegaban más fácil que los elogios. Aprendiste que las palabras son la prueba más real de que alguien te quiere.",
+    ejemplos:["Mensajes espontáneos sin razón","'Lo hiciste muy bien' en el momento justo","Que recuerden algo que dijiste y lo mencionen","Cartas, notas, audios cargados de intención","Palabras de aliento justo cuando las necesitas"]},
+  tiempo:{name:"Tiempo de calidad",icon:"⏰",color:"#D6E8DC",textColor:"#3A5A40",barColor:"#7AB890",
+    desc:"Para ti el amor se mide en presencia, no en regalos ni palabras. Necesitas que la persona esté contigo de verdad — sin teléfono, sin distracciones, completamente ahí.",
+    herida:"Este lenguaje suele formarse cuando los cuidadores estaban físicamente presentes pero emocionalmente ausentes — ocupados, distantes, preocupados por otras cosas. Aprendiste que la presencia real es rara y muy valiosa.",
+    ejemplos:["Conversaciones sin teléfono de por medio","Rituales de pareja que se respetan","Actividades compartidas sin agenda","Que cancelen otras cosas por estar contigo","Silencio cómodo, juntos sin necesitar llenar el espacio"]},
+  regalos:{name:"Regalos simbólicos",icon:"🎁",color:"#E2DCF0",textColor:"#4A3878",barColor:"#A89BC8",
+    desc:"No es materialismo — es el símbolo de que pensaron en ti. Un regalo pequeño y significativo dice 'estabas en mi mente aunque no estuvieras presente'. Eso te llena el corazón.",
+    herida:"Este lenguaje puede nacer donde los objetos eran la única forma de afecto disponible, o donde los detalles nunca llegaban y aprendiste a sentirte invisible. El regalo se convirtió en la prueba tangible del amor.",
+    ejemplos:["Tu comida favorita sin haberla pedido","Algo pequeño que vieron y pensaron en ti","Recordar fechas sin recordatorio","Souvenirs del viaje más pequeño","Un detalle en un día ordinario, sin motivo"]},
+  actos:{name:"Actos de servicio",icon:"🙌",color:"#F5EDD6",textColor:"#6A5020",barColor:"#C8A870",
+    desc:"Las palabras pueden engañar. Lo que una persona hace por ti dice más. Cuando alguien facilita tu vida, te alivia, actúa sin que se lo pidas — eso es amor real para ti.",
+    herida:"Este lenguaje puede venir de haber cargado con demasiado sola desde pequeña, o de aprender que el amor se demuestra, no se dice. Ahora buscas en la pareja a alguien que comparta ese peso.",
+    ejemplos:["Hacer algo doméstico sin pedírselo","Estar lista la información que necesitas","Acompañarte a algo que tú sabes que a ellos no les entusiasma","Resolver un problema antes de que lo menciones","Cuidar de ti cuando estás enferma sin que pidas ayuda"]},
+  toque:{name:"Contacto físico",icon:"🤝",color:"#D4E8F0",textColor:"#1A4060",barColor:"#70A8C8",
+    desc:"El cuerpo no miente. Para ti la conexión es literal — se siente en un abrazo, en una mano que sostiene, en estar cerca. Sin contacto, el vínculo se siente frío aunque todo lo demás esté bien.",
+    herida:"Este lenguaje puede nacer en infancias con poco contacto físico afectuoso — donde los abrazos eran escasos. O en el extremo opuesto: donde el contacto fue invasivo y la relación con el cuerpo y la cercanía se volvió compleja.",
+    ejemplos:["Abrazos largos, sin apuro","Tomarse de la mano en cualquier momento","Caricias espontáneas mientras hablan","Contacto durante el silencio (pie, hombro)","Besos sin que lleven a nada más"]}
+};
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
 let state = {
-  currentScreen: 0,
-  totalScreens: 6,
-  langPrimary: null,
-  langSecondary: null,
-  subCats: [],
-  heridas: [],
-  scales: {},
-  q_infancia1: "", q_infancia2: "", q_herida_hoy: "",
-  q_vacio1: "", q_creencia: "", q_ninha: "",
+  currentScreen:0, totalScreens:4,
+  langPrimary:null, langSecondary:null,
+  heridas:[], q_infancia:"", q_hoy:""
 };
 
 // ── NAVIGATION ────────────────────────────────────────────────────────────────
-function goTo(n) {
+function goTo(n){
   document.getElementById(`screen-${state.currentScreen}`).classList.remove('active');
   state.currentScreen = n;
   document.getElementById(`screen-${n}`).classList.add('active');
-  updateProgress();
-  updateDots();
-  window.scrollTo({top: 0, behavior:'smooth'});
-  if (n === 2) buildScreen2();
-  if (n === 4) buildScales();
-  if (n === 5) buildResults();
+  updateProgress(); updateDots();
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(n===1) refreshLang2();
+  if(n===3) buildResults();
 }
-
-function updateProgress() {
-  const pct = (state.currentScreen / (state.totalScreens - 1)) * 100;
-  document.getElementById('progressBar').style.width = pct + '%';
+function updateProgress(){
+  document.getElementById('progressBar').style.width = (state.currentScreen/(state.totalScreens-1)*100)+'%';
 }
-
-function updateDots() {
+function updateDots(){
   const nav = document.getElementById('stepNav');
-  nav.innerHTML = '';
-  for (let i = 1; i < state.totalScreens - 1; i++) {
-    const d = document.createElement('div');
-    d.className = 'step-dot' + (i === state.currentScreen ? ' active' : (i < state.currentScreen ? ' done' : ''));
+  nav.innerHTML='';
+  for(let i=1;i<state.totalScreens;i++){
+    const d=document.createElement('div');
+    d.className='step-dot'+(i===state.currentScreen?' active':(i<state.currentScreen?' done':''));
     nav.appendChild(d);
   }
 }
 
 // ── SCREEN 1 ──────────────────────────────────────────────────────────────────
-function selectLang(el) {
-  document.querySelectorAll('#langCards .lang-card').forEach(c => c.classList.remove('selected'));
+function selectLang(el){
+  document.querySelectorAll('#langCards .lang-card').forEach(c=>c.classList.remove('selected'));
   el.classList.add('selected');
-  state.langPrimary = el.dataset.lang;
-  document.getElementById('btn1').disabled = false;
-  const info = document.getElementById('langInfo');
-  const d = LANGS[state.langPrimary];
-  info.className = 'info-box visible';
-  info.style.background = d.color;
-  info.style.color = d.textColor;
-  info.innerHTML = `<h4>${d.icon} ${d.name}</h4><p>${d.desc}</p>`;
+  state.langPrimary=el.dataset.lang;
+  checkBtn1();
+  const d=LANGS[state.langPrimary];
+  const info=document.getElementById('langInfo');
+  info.className='info-box visible';
+  info.style.background=d.color; info.style.color=d.textColor;
+  info.innerHTML=`<h4>${d.icon} ${d.name}</h4><p>${d.desc}</p>`;
+  refreshLang2();
+}
+function refreshLang2(){
+  if(!state.langPrimary) return;
+  document.querySelectorAll('#langCards2 .lang-card').forEach(c=>{
+    if(c.dataset.lang===state.langPrimary){c.style.opacity='.3';c.style.pointerEvents='none';c.classList.remove('selected');}
+    else{c.style.opacity='';c.style.pointerEvents='';}
+    if(c.dataset.lang===state.langSecondary) c.classList.add('selected');
+  });
+}
+function selectLang2(el){
+  document.querySelectorAll('#langCards2 .lang-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  state.langSecondary=el.dataset.lang;
+  checkBtn1();
+}
+function checkBtn1(){
+  document.getElementById('btn1').disabled = !(state.langPrimary && state.langSecondary);
 }
 
 // ── SCREEN 2 ──────────────────────────────────────────────────────────────────
-function buildScreen2() {
-  if (!state.langPrimary) return;
-  const grid = document.getElementById('subCategories');
-  grid.innerHTML = '';
-  LANGS[state.langPrimary].subcats.forEach(sub => {
-    const el = document.createElement('div');
-    el.className = 'check-item' + (state.subCats.includes(sub) ? ' selected' : '');
-    el.innerHTML = `<div class="check-icon">${state.subCats.includes(sub) ? '✓' : ''}</div><div class="check-text">${sub}</div>`;
-    el.onclick = () => {
-      el.classList.toggle('selected');
-      const icon = el.querySelector('.check-icon');
-      if (el.classList.contains('selected')) {
-        if (!state.subCats.includes(sub)) state.subCats.push(sub);
-        icon.textContent = '✓';
-      } else {
-        state.subCats = state.subCats.filter(s => s !== sub);
-        icon.textContent = '';
-      }
-    };
-    grid.appendChild(el);
-  });
-  // filter out primary from secondary options
-  document.querySelectorAll('#langCards2 .lang-card').forEach(c => {
-    if (c.dataset.lang === state.langPrimary) {
-      c.style.opacity = '0.3';
-      c.style.pointerEvents = 'none';
-    } else {
-      c.style.opacity = '';
-      c.style.pointerEvents = '';
-    }
-    if (c.dataset.lang === state.langSecondary) c.classList.add('selected');
-  });
-  document.getElementById('btn2').disabled = !state.langSecondary;
-}
-
-function selectLang2(el) {
-  document.querySelectorAll('#langCards2 .lang-card').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  state.langSecondary = el.dataset.lang;
-  document.getElementById('btn2').disabled = false;
-}
-
-// ── SCREEN 3 ──────────────────────────────────────────────────────────────────
-function toggleCheck(el) {
+function toggleCheck(el){
   el.classList.toggle('selected');
-  const icon = el.querySelector('.check-icon');
-  icon.textContent = el.classList.contains('selected') ? '✓' : '';
+  el.querySelector('.check-icon').textContent=el.classList.contains('selected')?'✓':'';
 }
 
-function checkStep3() {
-  // always allow proceeding — reflection is personal
-}
-
-// ── SCREEN 4 ──────────────────────────────────────────────────────────────────
-function buildScales() {
-  const block = document.getElementById('scalesBlock');
-  if (block.innerHTML !== '') return;
-  SCALES.forEach(s => {
-    const div = document.createElement('div');
-    div.className = 'question-block';
-    div.innerHTML = `
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:16px;">${s.label}</h3>
-      <div class="scale-wrap" id="wrap_${s.id}">
-        ${[1,2,3,4,5].map(n => `<button class="scale-btn ${state.scales[s.id] === n ? 'selected' : ''}" onclick="setScale('${s.id}', ${n}, this)">${n}</button>`).join('')}
-      </div>
-      <div class="scale-labels"><span>Nada</span><span>Completamente</span></div>
-    `;
-    block.appendChild(div);
-  });
-}
-
-function setScale(id, val, btn) {
-  state.scales[id] = val;
-  document.querySelectorAll(`#wrap_${id} .scale-btn`).forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-}
-
-// ── SCREEN 5 — RESULTS ───────────────────────────────────────────────────────
-function buildResults() {
-  const container = document.getElementById('resultsContent');
-  container.innerHTML = '';
-
-  // Save text fields
-  state.q_infancia1 = document.getElementById('q_infancia1').value;
-  state.q_infancia2 = document.getElementById('q_infancia2').value;
-  state.q_herida_hoy = document.getElementById('q_herida_hoy').value;
-  state.q_vacio1 = document.getElementById('q_vacio1').value;
-  state.q_creencia = document.getElementById('q_creencia').value;
-  state.q_ninha = document.getElementById('q_ninha').value;
-
-  // Save heridas
-  state.heridas = [];
-  document.querySelectorAll('#heridas .check-item.selected').forEach(el => {
+// ── SCREEN 3: RESULTS ────────────────────────────────────────────────────────
+function buildResults(){
+  state.q_infancia=document.getElementById('q_infancia').value;
+  state.q_hoy=document.getElementById('q_hoy').value;
+  state.heridas=[];
+  document.querySelectorAll('#heridas .check-item.selected').forEach(el=>{
     state.heridas.push(el.querySelector('.check-text').textContent);
   });
 
-  const p = LANGS[state.langPrimary];
-  const s = state.langSecondary && state.langSecondary !== 'ninguno' ? LANGS[state.langSecondary] : null;
+  const container=document.getElementById('resultsContent');
+  container.innerHTML='';
+  const p=LANGS[state.langPrimary];
+  const s=(state.langSecondary&&state.langSecondary!=='igual'&&LANGS[state.langSecondary])?LANGS[state.langSecondary]:null;
 
-  // Block 1: Lenguaje principal
-  let b1 = document.createElement('div');
-  b1.className = 'result-section';
-  b1.innerHTML = `
+  // Bloque lenguajes
+  let b1=document.createElement('div');
+  b1.className='result-section';
+  b1.innerHTML=`
     <div class="rs-sub">Tu lenguaje principal</div>
     <h3>${p.icon} ${p.name}</h3>
     <p class="result-text">${p.desc}</p>
-    ${s ? `<div style="margin-top:12px;"><span class="result-badge" style="background:${s.color};color:${s.textColor};">${s.icon} Secundario: ${s.name}</span></div>` : ''}
-    ${state.subCats.length > 0 ? `<div style="margin-top:12px;">${state.subCats.map(sc => `<span class="result-badge" style="background:${p.color};color:${p.textColor};font-size:11px;">${sc}</span>`).join('')}</div>` : ''}
+    ${s?`<div style="margin-top:12px;"><span class="result-badge" style="background:${s.color};color:${s.textColor};">${s.icon} Así das tú: ${s.name}</span></div>`:''}
+    <div style="margin-top:14px;">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--light);margin-bottom:8px;">Lo que más te nutre</div>
+      ${p.ejemplos.map(e=>`<span class="result-badge" style="background:${p.color};color:${p.textColor};font-size:11px;">${e}</span>`).join('')}
+    </div>
   `;
   container.appendChild(b1);
 
-  // Block 2: Herida
-  let b2 = document.createElement('div');
-  b2.className = 'result-section';
-  b2.innerHTML = `
+  // Bloque herida
+  let b2=document.createElement('div');
+  b2.className='result-section';
+  b2.innerHTML=`
     <div class="rs-sub">La raíz de tu forma de amar</div>
     <h3>Tu historia afectiva</h3>
     <p class="result-text" style="font-style:italic;color:#A07878;">${p.herida}</p>
-    ${state.heridas.length > 0 ? `<div style="margin-top:14px;"><div style="font-size:11px;color:var(--light);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.1em;">Heridas que reconoces</div>${state.heridas.map(h => `<span class="result-badge" style="background:var(--rose);color:#7A4040;font-size:11px;">${h}</span>`).join('')}</div>` : ''}
+    ${state.heridas.length>0?`<div style="margin-top:14px;"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--light);margin-bottom:8px;">Heridas que reconoces</div>${state.heridas.map(h=>`<span class="result-badge" style="background:var(--rose);color:#7A4040;font-size:11px;">${h}</span>`).join('')}</div>`:''}
   `;
   container.appendChild(b2);
 
-  // Block 3: Satisfacción
-  if (Object.keys(state.scales).length > 0) {
-    let b3 = document.createElement('div');
-    b3.className = 'result-section';
-    let barsHTML = SCALES.map(sc => {
-      const val = state.scales[sc.id] || 0;
-      const pct = (val / 5) * 100;
-      const colors = ['#C8A0A0','#A89BC8','#7AB890','#C8A870','#70A8C8'];
-      const col = colors[Math.floor(Math.random() * colors.length)];
-      return `<div class="bar-wrap"><div class="bar-label"><span>${sc.label}</span><span style="font-weight:500;">${val}/5</span></div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${col};"></div></div></div>`;
-    }).join('');
-    b3.innerHTML = `<div class="rs-sub">Satisfacción afectiva actual</div><h3>¿Cómo te sientes hoy?</h3>${barsHTML}`;
+  // Bloque reflexiones
+  const refs=[
+    {label:"Lo que necesitabas de niña y no llegó",val:state.q_infancia},
+    {label:"Cómo aparece en tus relaciones hoy",val:state.q_hoy}
+  ].filter(r=>r.val&&r.val.trim());
+  if(refs.length>0){
+    let b3=document.createElement('div');
+    b3.className='result-section';
+    b3.innerHTML=`<div class="rs-sub">Tus reflexiones personales</div><h3>Lo que descubriste hoy</h3>`+
+      refs.map(r=>`<div style="margin-top:14px;"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--light);margin-bottom:5px;">${r.label}</div><div class="result-text" style="background:var(--cream);padding:11px;border-radius:10px;">${r.val}</div></div>`).join('');
     container.appendChild(b3);
   }
 
-  // Block 4: Reflexiones
-  const reflexiones = [
-    { label: "Lo que recibiste en la infancia", val: state.q_infancia1 },
-    { label: "Lo que necesitabas y no llegó", val: state.q_infancia2 },
-    { label: "Cómo aparece la herida hoy", val: state.q_herida_hoy },
-    { label: "Lo que más temes no recibir", val: state.q_vacio1 },
-    { label: "Creencia que cargas sobre el amor", val: state.q_creencia },
-    { label: "Lo que tu yo de 8 años te diría", val: state.q_ninha },
-  ].filter(r => r.val && r.val.trim());
-
-  if (reflexiones.length > 0) {
-    let b4 = document.createElement('div');
-    b4.className = 'result-section';
-    b4.innerHTML = `<div class="rs-sub">Tus reflexiones personales</div><h3>Lo que descubriste hoy</h3>` +
-      reflexiones.map(r => `<div style="margin-top:16px;"><div style="font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--light);margin-bottom:4px;">${r.label}</div><div class="result-text" style="background:var(--cream);padding:12px;border-radius:10px;">${r.val}</div></div>`).join('');
-    container.appendChild(b4);
-  }
+  buildSkoolPost();
 }
 
-// ── DOWNLOAD ──────────────────────────────────────────────────────────────────
-function downloadResults() {
-  const p = LANGS[state.langPrimary];
-  const s = state.langSecondary && state.langSecondary !== 'ninguno' ? LANGS[state.langSecondary] : null;
-  const fecha = new Date().toLocaleDateString('es-CO', {year:'numeric', month:'long', day:'numeric'});
+// ── SKOOL ─────────────────────────────────────────────────────────────────────
+function buildSkoolPost(){
+  if(!state.langPrimary) return;
+  const p=LANGS[state.langPrimary];
+  const s=(state.langSecondary&&state.langSecondary!=='igual'&&LANGS[state.langSecondary])?LANGS[state.langSecondary]:null;
+  const heridasText=state.heridas.length>0
+    ? state.heridas.map(h=>`• ${h}`).join('\n')
+    : '• Todavía lo estoy explorando';
 
-  const scaleLines = SCALES.map(sc => `  • ${sc.label}: ${state.scales[sc.id] || 'Sin responder'}/5`).join('\n');
+  const post=`Hice el ejercicio de los lenguajes del afecto de Relation Line™ y esto es lo que descubrí sobre mí 💬
 
-  const content = `
-════════════════════════════════════════════════════
+—
+
+📌 Mis 2 lenguajes principales del amor:
+
+Lenguaje principal: ${p.icon} ${p.name}
+${s?`Lenguaje secundario / cómo doy: ${s.icon} ${s.name}`:'Mi lenguaje principal es el mismo con el que doy y recibo.'}
+
+—
+
+💭 ¿Pienso que es malo o bueno pedir muestras de afecto a mi pareja?
+
+[Escribe aquí tu respuesta — es la parte más importante de la publicación]
+
+—
+
+🌱 A qué me comprometo luego de este ejercicio:
+
+[Escribe aquí tu compromiso concreto — uno solo, que sea real y alcanzable]
+
+—
+
+#RelationLine #LenguajesDelAfecto #YaNoMeDueles #Logro`;
+
+  document.getElementById('skool_post').value=post;
+  autoResizeSkool(document.getElementById('skool_post'));
+}
+
+function autoResizeSkool(el){
+  el.style.height='auto';
+  el.style.height=(el.scrollHeight+4)+'px';
+}
+
+function copySkoolPost(){
+  const titulo=document.getElementById('skool_titulo').value;
+  const post=document.getElementById('skool_post').value;
+  const full=`TÍTULO: ${titulo}\n\n${post}`;
+  navigator.clipboard.writeText(full).then(()=>{
+    const fb=document.getElementById('copyFeedback');
+    fb.classList.add('show');
+    setTimeout(()=>fb.classList.remove('show'),2500);
+  });
+}
+
+// ── DOWNLOAD ─────────────────────────────────────────────────────────────────
+function downloadResults(){
+  if(!state.langPrimary){alert('Completa el ejercicio primero.');return;}
+  const p=LANGS[state.langPrimary];
+  const s=(state.langSecondary&&state.langSecondary!=='igual'&&LANGS[state.langSecondary])?LANGS[state.langSecondary]:null;
+  const fecha=new Date().toLocaleDateString('es-CO',{year:'numeric',month:'long',day:'numeric'});
+  const content=`
+════════════════════════════════════════════
   MIS LENGUAJES DEL AFECTO — RELATION LINE™
   Fecha: ${fecha}
-════════════════════════════════════════════════════
+════════════════════════════════════════════
 
-
-◆ MI LENGUAJE PRINCIPAL
+◆ LENGUAJE PRINCIPAL
 ${p.icon}  ${p.name.toUpperCase()}
-
 ${p.desc}
 
-${state.subCats.length > 0 ? '→ Formas en que lo expreso o necesito:\n' + state.subCats.map(s => '  • ' + s).join('\n') : ''}
+→ Lo que más me nutre:
+${p.ejemplos.map(e=>'  • '+e).join('\n')}
 
-${s ? `◆ MI LENGUAJE SECUNDARIO\n${s.icon}  ${s.name}\n${s.desc}` : ''}
+${s?`◆ LENGUAJE SECUNDARIO (cómo doy el amor)
+${s.icon}  ${s.name}
+${s.desc}`:''}
 
-
-────────────────────────────────────────────────────
-◆ LA RAÍZ DE MI FORMA DE AMAR
-────────────────────────────────────────────────────
+────────────────────────────────────────────
+◆ MI HISTORIA AFECTIVA
+────────────────────────────────────────────
 
 ${p.herida}
 
-${state.heridas.length > 0 ? '→ Heridas que reconozco en mí:\n' + state.heridas.map(h => '  • ' + h).join('\n') : ''}
+${state.heridas.length>0?'→ Heridas que reconozco:\n'+state.heridas.map(h=>'  • '+h).join('\n'):''}
 
+────────────────────────────────────────────
+◆ MIS REFLEXIONES
+────────────────────────────────────────────
 
-────────────────────────────────────────────────────
-◆ MIS REFLEXIONES PERSONALES
-────────────────────────────────────────────────────
+▸ Lo que necesitaba de niña y no llegó:
+${state.q_infancia||'(Sin responder)'}
 
-▸ ¿Cómo expresaba el afecto mi cuidador principal?
-${state.q_infancia1 || '(Sin responder)'}
+▸ Cómo aparece eso en mis relaciones hoy:
+${state.q_hoy||'(Sin responder)'}
 
-▸ ¿Qué necesitaba y nunca llegó?
-${state.q_infancia2 || '(Sin responder)'}
-
-▸ ¿Cómo aparece esa herida en mis relaciones hoy?
-${state.q_herida_hoy || '(Sin responder)'}
-
-▸ ¿Qué es lo que más temo no recibir en una relación?
-${state.q_vacio1 || '(Sin responder)'}
-
-▸ ¿Hay algo que creo que nunca voy a conseguir en una relación?
-${state.q_creencia || '(Sin responder)'}
-
-▸ ¿Qué le diría mi yo de 8 años a la forma en que amo hoy?
-${state.q_ninha || '(Sin responder)'}
-
-
-────────────────────────────────────────────────────
-◆ MI SATISFACCIÓN AFECTIVA ACTUAL (1–5)
-────────────────────────────────────────────────────
-
-${scaleLines || '  (Sin completar)'}
-
-
-════════════════════════════════════════════════════
-  Este documento es personal y confidencial.
-  Generado con la herramienta de Relation Line™
-════════════════════════════════════════════════════
+════════════════════════════════════════════
+  Relation Line™ — Documento personal y confidencial
+════════════════════════════════════════════
 `.trim();
-
-  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `mis-lenguajes-del-afecto-${fecha.replace(/ /g, '-')}.txt`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  const blob=new Blob([content],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=`mis-lenguajes-del-afecto.txt`;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
-updateDots();
-updateProgress();
+updateDots(); updateProgress();
 </script>
 </body>
 </html>
+
+File created, size: 73701 bytes
