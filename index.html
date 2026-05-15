@@ -1,3 +1,8 @@
+bash
+
+BASE64=$(base64 -w 0 /mnt/user-data/uploads/1778715943706_image.png)
+
+cat > /mnt/user-data/outputs/lenguajes-del-afecto.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -624,5 +629,9 @@ updateDots(); updateProgress();
 </script>
 </body>
 </html>
+SCRIPTEOF
+
+echo "File created, size: $(wc -c < /mnt/user-data/outputs/lenguajes-del-afecto.html) bytes"
+Output
 
 File created, size: 73701 bytes
